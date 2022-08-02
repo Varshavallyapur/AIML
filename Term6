@@ -1,0 +1,19 @@
+import csv
+
+rows = []
+
+with open('finds.csv') as file:
+    next(file)
+    for row in csv.reader(file):
+        rows.append(row)
+
+attributes_count = len(rows[0]) - 1
+Hypothesis = ['Φ'] * attributes_count
+
+for row in rows:
+    for attribute in range(attributes_count):
+        if row[attributes_count] == "yes":
+            if row[attribute] != Hypothesis[attribute]:
+                Hypothesis[attribute] = '?' if Hypothesis[attribute] != 'Φ' else row[attribute]
+
+print(f"Final Hypothesis is {Hypothesis}.")
