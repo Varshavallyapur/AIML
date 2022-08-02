@@ -1,0 +1,23 @@
+import numpy as np
+import pandas as pd
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.feature_extraction.text import CountVectorizer
+
+df=pd.read_csv("C:\\Users\\Asus\\Desktop\\New folder\\emails.csv")
+df['label'] = df.spam.map({0:'ham',1:'spam'})
+
+X = df.text
+y = df.label
+
+vect = CountVectorizer()
+X_count = vect.fit_transform(X)
+y_count= vect.transform(y)
+
+sd = MultinomialNB()
+sd.fit(X_count,y)
+
+t = [input("enter a text msg to test : ")]
+t = np.array(t)
+t = vect.transform(t)
+prediction = sd.predict(t)
+print(prediction)
