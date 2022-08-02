@@ -1,0 +1,32 @@
+def best_first_search(start, target):
+    queue = [start]
+    visited = set()
+    while queue:
+        node = queue[0]
+        queue.pop(0)
+        print(node, end=" ")
+        visited.add(node)
+        if node == target:
+            print("\nGoal node is found.")
+            return
+        else:
+            for child in tree[node]:
+                if child not in visited:
+                    queue.append(child)
+                    visited.add(child)
+            queue.sort(key=lambda x: cost_tree[x])
+    print("\nGoal node is not found.")
+
+
+tree = {}
+cost_tree = {}
+nodes = int(input("Enter the number of nodes : "))
+for i in range(nodes):
+    tree[i] = list(map(int, input(f"Enter the children of {i} : ").split()))
+print()
+
+for i in range(nodes):
+    cost_tree[i] = int(input(f"Enter the heuristic value of {i} : "))
+print()
+
+best_first_search(start=0, target=int(input("Enter the target node : ")))
